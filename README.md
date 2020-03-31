@@ -1,4 +1,4 @@
-# laravel-signature
+# signature
 Signature helper for Laravel
 
 [三方接入文档](./INTERGRATION.md)
@@ -12,13 +12,13 @@ Signature helper for Laravel
 #### 安装
 
 ```bash
-composer require hypocenter/laravel-signature
+composer require fengjian199308/signature
 ```
 
 #### 配置
 
 ```
-php artisan vendor:publish --provider="Hypocenter\LaravelSignature\SignatureServiceProvider"
+php artisan vendor:publish --provider="Fengjian199308\Signature\SignatureServiceProvider"
 ```
 
 执行命令后会生成配置文件 app/config/signature.php
@@ -33,7 +33,7 @@ return [
     // 驱动配置
     'drivers' => [
         'default' => [
-            'class'          => \Hypocenter\LaravelSignature\Signature::class,
+            'class'          => \Fengjian199308\Signature\Signature::class,
             'resolver'       => 'header',
             'repository'     => 'array',
             'nonce_length'   => 16, // 随机字符串长度
@@ -44,7 +44,7 @@ return [
 
     'resolvers' => [
         'header' => [
-            'class'         => \Hypocenter\LaravelSignature\Resolvers\HeaderResolver::class,
+            'class'         => \Fengjian199308\Signature\Resolvers\HeaderResolver::class,
             'key_app_id'    => 'X-SIGN-APP-ID',
             'key_sign'      => 'X-SIGN',
             'key_timestamp' => 'X-SIGN-TIME',
@@ -54,12 +54,12 @@ return [
 
     'repositories' => [
         'model' => [
-            'class' => \Hypocenter\LaravelSignature\Repositories\ModelRepository::class,
-            'model' => \Hypocenter\LaravelSignature\Models\Partner::class,
+            'class' => \Fengjian199308\Signature\Repositories\ModelRepository::class,
+            'model' => \Fengjian199308\Signature\Models\Partner::class,
         ],
 
         'array' => [
-            'class'   => \Hypocenter\LaravelSignature\Repositories\ArrayRepository::class,
+            'class'   => \Fengjian199308\Signature\Repositories\ArrayRepository::class,
             'defines' => [
                 // Add more defines here.
                 [
@@ -128,7 +128,7 @@ $res = $client->request($payload->getMethod(), $payload->getPath() . '?'. http_b
 class Kernel extends HttpKernel {
   protected $routeMiddleware = [
         // ...
-        'signature' => \Hypocenter\LaravelSignature\Middleware\SignatureMiddleware::class
+        'signature' => \Fengjian199308\Signature\Middleware\SignatureMiddleware::class
     ];
 }
 ```
